@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 const Button = ({ text, onClick }) => <button onClick={onClick}>{text}</button>;
+
 const StatisticLine = ({ text, value }) => (
   <tr>
     <td>{text}</td>
@@ -10,18 +11,25 @@ const StatisticLine = ({ text, value }) => (
 
 const Statistics = ({ feedback }) => {
   const total = feedback.good + feedback.neutral + feedback.bad;
-  const avg = (total / 3).toFixed(2);
-  const positive = ((feedback.good / total) * 100).toFixed(2) + '%';
-  return (
-    <tbody>
-      <StatisticLine text='good' value={feedback.good} />
-      <StatisticLine text='neutral' value={feedback.neutral} />
-      <StatisticLine text='bad' value={feedback.bad} />
-      <StatisticLine text='all' value={total} />
-      <StatisticLine text='average' value={avg} />
-      <StatisticLine text='positive' value={positive} />
-    </tbody>
-  );
+  const average = ((feedback.good - feedback.bad) / total).toFixed(2);
+  const positive = ((feedback.good / total) * 100).toFixed(2) + ' %';
+
+  if (total === 0) {
+    return <p>No feedback given</p>;
+  } else {
+    return (
+      <table>
+        <tbody>
+          <StatisticLine text='good' value={feedback.good} />
+          <StatisticLine text='neutral' value={feedback.neutral} />
+          <StatisticLine text='bad' value={feedback.bad} />
+          <StatisticLine text='all' value={total} />
+          <StatisticLine text='average' value={average} />
+          <StatisticLine text='positive' value={positive} />
+        </tbody>
+      </table>
+    );
+  }
 };
 
 const App = () => {
@@ -49,16 +57,8 @@ const App = () => {
       <Button text='good' onClick={handleGood} />
       <Button text='neutral' onClick={handleNeutral} />
       <Button text='bad' onClick={handleBad} />
-
       <h2>statistics</h2>
-
-      {feedback.good + feedback.neutral + feedback.bad === 0 ? (
-        <p>No feedback given</p>
-      ) : (
-        <table>
-          <Statistics feedback={feedback} />
-        </table>
-      )}
+      <Statistics feedback={feedback} />
     </div>
   );
 };
