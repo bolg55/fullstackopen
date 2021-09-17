@@ -59,7 +59,7 @@ const App = () => {
           setWeather({
             temp: res.data.main.temp,
             feelsLike: res.data.main.feels_like,
-            icon: res.data.weather.icon,
+            icon: res.data.weather[0].icon,
             wind: res.data.wind.speed,
           })
         );
@@ -77,11 +77,17 @@ const App = () => {
           ))}
         </ul>
         <img src={country.flag} alt={country.name} />
-        <h3>Weather in {country.capital}</h3>
+        <h3>
+          Weather in {country.capital}{' '}
+          <img
+            src={`http://openweathermap.org/img/w/${weather.icon}.png`}
+            alt='weather_icon'
+          />
+        </h3>
+
         <p>temperature: {weather.temp} Celcius</p>
         <p>feels like: {weather.feelsLike} Celcius</p>
         <p>wind speed: {weather.wind} mph</p>
-        <img src={weather.icon} alt='weather_icon' />
       </div>
     );
   });
