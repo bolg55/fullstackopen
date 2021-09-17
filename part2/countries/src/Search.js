@@ -1,4 +1,4 @@
-const Search = ({ search, handleChange }) => {
+const Search = ({ search, setSearch, handleChange }) => {
   return (
     <div>
       find countries:
@@ -7,6 +7,7 @@ const Search = ({ search, handleChange }) => {
         onChange={handleChange}
         placeholder='Search for a country'
       />
+      <button onClick={() => setSearch('')}>clear</button>
     </div>
   );
 };
