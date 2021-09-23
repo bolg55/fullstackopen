@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Filter from './Filter';
-import PersonForm from './PersonForm';
-import People from './People';
-import axios from 'axios';
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
+import People from './components/People';
+import directoryService from './services/people';
+import Notification from './components/Notifications';
 
 const App = () => {
   // State handlers //
@@ -10,11 +11,13 @@ const App = () => {
   const [newSearch, setNewSearch] = useState('');
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   // Effect handlers //
 
   useEffect(() => {
-    axios.get('http://localhost:3001/people').then((res) => {
+    directoryService.getAll().then((res) => {
       setPeople(res.data);
     });
   }, []);
@@ -46,8 +49,9 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
-
+      <h1>Phonebook</h1>
+      <Notification message={notificationMessage} />
+      <Notification error={errorMessage} />
       <Filter
         people={people}
         value={newSearch}
@@ -63,8 +67,14 @@ const App = () => {
         handleNumberChange={handleNumberChange}
         setNewName={setNewName}
         setNewNumber={setNewNumber}
+        setNotificationMessage={setNotificationMessage}
+        setErrorMessage={setErrorMessage}
       />
-      <People people={filteredPeople} />
+      <People
+        people={filteredPeople}
+        setPeople={setPeople}
+        setNotificationMessage={setNotificationMessage}
+      />
     </div>
   );
 };
