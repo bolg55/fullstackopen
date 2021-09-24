@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
+  "name": "fso-part3",
+  "description": "This is the backend for fullstackOpen part 3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bolg55/fsO-part3.git"
+  },
+  "author": "Kellen Bolger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bolg55/fsO-part3/issues"
+  },
+  "homepage": "https://github.com/bolg55/fsO-part3#readme"
+}
